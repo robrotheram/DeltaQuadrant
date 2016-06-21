@@ -29,7 +29,7 @@ build/Release
 
 # Dependency directories
 node_modules
-app/components
+src/client/components
 jspm_packages
 
 # Optional npm cache directory

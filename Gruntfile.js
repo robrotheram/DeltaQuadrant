@@ -18,20 +18,20 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         useminPrepare: {
             options: {
-                cwd:'app',
-                dest: 'public'
+                cwd:'src/client',
+                dest: 'src/server/public'
             },
-            html: 'app/index.html'
+            html: 'src/client/index.html'
         },
         usemin: {
             options: {
-                dirs: ['public']
+                dirs: ['src/server/public']
             },
-            html: ['public/{,*/}*.html'],
+            html: ['src/server/public/{,*/}*.html'],
            // css: ['dist/styles/{,*/}*.css']
         },
         watch: {
-            files: ["app/**/*","Gruntfile.js","bower.json"],
+            files: ["src/client/**/*","Gruntfile.js","bower.json"],
             tasks: ["clean","useminPrepare","copy","concat","less","uglify","usemin"]
         },
         // "less"-task configuration
@@ -39,12 +39,12 @@ module.exports = function (grunt) {
         copy: {
             main: {
                 files: [
-                    {expand: true, cwd: 'app/', src: ['views/**'], dest: 'public/'},
-                    {expand: true, cwd: 'app/', src: ['img/**'], dest: 'public/'},
-                    {expand: true, cwd: 'app/', src: ['css/**'], dest: 'public/'},
+                    {expand: true, cwd: 'src/client/', src: ['views/**'], dest: 'src/server/public/'},
+                    {expand: true, cwd: 'src/client/', src: ['img/**'], dest: 'src/server/public/'},
+                    {expand: true, cwd: 'src/client/', src: ['css/**'], dest: 'src/server/public/'},
                     //{expand: true, cwd: 'app/', src: ['js/**'], dest: 'public/'},
-                    {expand: true, cwd: 'app/', src: ['*.html'], dest: 'public/'},
-                    {expand: true, cwd: 'app/components/bootstrap/fonts', src: ['*'], dest: 'public/fonts'},
+                    {expand: true, cwd: 'src/client/', src: ['*.html'], dest: 'src/server/public/'},
+                    {expand: true, cwd: 'src/client/components/bootstrap/fonts', src: ['*'], dest: 'src/server/public/fonts'},
                 ],
             },
         },
@@ -59,12 +59,12 @@ module.exports = function (grunt) {
                 options: {
                     // Specifies directories to scan for @import directives when parsing.
                     // Default value is the directory of the source, which is probably what you want.
-                    paths: ["public/css/"],
+                    paths: ["src/server/public/css/"],
                 },
                 files: [
                     // compilation.css  :  source.less
-                    {"public/css/bootstrap.css": "app/less/bootstrap/bootstrap.less"},
-                    {"public/css/style.css": "app/less/custom/style.less"},
+                    {"src/server/public/css/bootstrap.css": "src/client/less/bootstrap/bootstrap.less"},
+                    {"src/server/public/css/style.css": "src/client/less/custom/style.less"},
                 ],
             }
         },
@@ -93,7 +93,7 @@ module.exports = function (grunt) {
               cwd: __dirname,
               ignore: ['node_modules/**'],
               ext: 'js,coffee',
-              watch: ['**'],
+              watch: ['src/server'],
               delay: 1000,
               legacyWatch: true
             }
