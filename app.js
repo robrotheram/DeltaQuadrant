@@ -50,12 +50,10 @@ app.get('/setup', function(req, res) {
   });
   nick.save(function(err) {
     if (err) throw err;
-
     console.log('User saved successfully');
     res.json({ success: true });
   });
 });
-
 app.get('/setupserver', function(req, res) {
 
   // create a sample user
@@ -139,9 +137,7 @@ apiRoutes.use(function(req, res, next) {
         next();
       }
     });
-
   } else {
-
     // if there is no token
     // return an error
     return res.status(403).send({

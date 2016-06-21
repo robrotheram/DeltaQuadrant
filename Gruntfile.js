@@ -10,12 +10,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-usemin');
-    grunt.registerTask('default', ['uglify']);
+    grunt.loadNpmTasks('grunt-nodemon');
+    grunt.loadNpmTasks("grunt-concurrent");
 
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-
         useminPrepare: {
             options: {
                 cwd:'app',
@@ -30,11 +30,9 @@ module.exports = function (grunt) {
             html: ['public/{,*/}*.html'],
            // css: ['dist/styles/{,*/}*.css']
         },
-
         watch: {
-            // if any .less file changes in directory "public/css/" run the "less"-task.
             files: ["app/**/*","Gruntfile.js","bower.json"],
-            tasks: ["clean",'jshint',"useminPrepare","copy","concat","less","uglify"]
+            tasks: ["clean","useminPrepare","copy","concat","less","uglify","usemin"]
         },
         // "less"-task configuration
         clean: ['public'],
@@ -46,53 +44,17 @@ module.exports = function (grunt) {
                     {expand: true, cwd: 'app/', src: ['css/**'], dest: 'public/'},
                     //{expand: true, cwd: 'app/', src: ['js/**'], dest: 'public/'},
                     {expand: true, cwd: 'app/', src: ['*.html'], dest: 'public/'},
+                    {expand: true, cwd: 'app/components/bootstrap/fonts', src: ['*'], dest: 'public/fonts'},
                 ],
             },
         },
-        jshint: {
-            options: {
-                curly: false,
-                eqeqeq: true,
-                immed: true,
-                latedef: true,
-                newcap: true,
-                noarg: true,
-                sub: true,
-                undef: true,
-                eqnull: true,
-                laxbreak:true,
-                browser: true,
-                expr: true,
-                globals: {
-                    console: false,
-                    angular: false,
-                    io: false,
-                    $: false,
-                    TweenLite: false,
-                    TimelineLite: false,
-                    TweenMax: false,
-                    TimelineMax: false,
-                    Linear: false,
-                    Power0: false,
-                    Power1: false,
-                    Power2: false,
-                    Power3: false,
-                    Power4: false,
-                    d3: false,
-                    enableModalView: false,
-                    healthStatus: false,
-                    showMetricUpdateAnimation: false,
-                    Constants: true,
-                    Clipboard: false,
-                    jsPlumb: false,
-                    alert: false
-                }
-            },
-            files: ['Gruntfile.js', 'app/js/**']
-        },
-
-
-        less: {
+        uglify: {
+          options: {
+              report: 'min',
+              mangle: false
+          }
+      },
+      less: {
             development: {
                 options: {
                     // Specifies directories to scan for @import directives when parsing.
@@ -106,7 +68,43 @@ module.exports = function (grunt) {
                 ],
             }
         },
+        concurrent: {
+          dev: {
+            tasks: ['nodemon', 'watch'],
+            options: {
+              logConcurrentOutput: true
+            }
+          }
+      },
+        nodemon: {
+          dev: {
+            script: './bin/www',
+            options: {
+              args: ['dev'],
+              nodeArgs: ['--debug'],
+              callback: function (nodemon) {
+                nodemon.on('log', function (event) {
+                  console.log(event.colour);
+                });
+              },
+              env: {
+                PORT: '8181'
+              },
+              cwd: __dirname,
+              ignore: ['node_modules/**'],
+              ext: 'js,coffee',
+              watch: ['**'],
+              delay: 1000,
+              legacyWatch: true
+            }
+          },
+          exec: {
+            options: {
+              exec: 'less'
+            }
+          }
+        }
     });
-    grunt.registerTask('default', ['less','watch']);
+    grunt.registerTask('default', ['concurrent']);
     grunt.loadNpmTasks('grunt-contrib-uglify'); // load the given tasks
 };
