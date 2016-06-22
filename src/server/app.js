@@ -14,16 +14,14 @@ var Server   = require('./models/servers'); // get our mongoose model
 var app = express();
 
 mongoose.connect('mongodb://robrotheram:mallard@ds011963.mlab.com:11963/api_example');
-const MongoClient = require('mongodb').MongoClient
+var MongoClient = require('mongodb').MongoClient;
 var db;
 MongoClient.connect('mongodb://robrotheram:mallard@ds011963.mlab.com:11963/api_example', function(err, database) {
   if(!err){
     console.log("DB link establised");
     db = database;
   }
-})
-
-
+});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -49,7 +47,9 @@ app.get('/setup', function(req, res) {
     admin: true
   });
   nick.save(function(err) {
-    if (err) throw err;
+    if (err) {
+      throw err;
+    }
     console.log('User saved successfully');
     res.json({ success: true });
   });
@@ -64,8 +64,9 @@ app.get('/setupserver', function(req, res) {
     authSecret: "secret",
   });
   ser.save(function(err) {
-    if (err) throw err;
-
+    if (err){
+      throw err;
+    }
     console.log('Server saved successfully');
     res.json({ success: true });
   });
@@ -87,17 +88,19 @@ apiRoutes.post('/authenticate', function(req, res) {
     name: req.body.name
   }, function(err, user) {
 
-    if (err) throw err;
+    if (err){
+       throw err;
+     }
 
     if (!user) {
       res.json({ success: false, message: 'Authentication failed. User not found.' });
     } else if (user) {
 
       // check if password matches
-      if (user.password != req.body.password) {
+      if (user.password !== req.body.password) {
         res.json({ success: false, message: 'Authentication failed. Wrong password.' });
       } else {
-
+        if (err){ throw err; }
         // if user is found and password is right
         // create a token
         var token = jwt.sign(user, app.get('superSecret'), {
@@ -207,7 +210,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+  res.send({
     message: err.message,
     error: {}
   });

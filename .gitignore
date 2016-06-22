@@ -20,6 +20,8 @@ coverage
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 .tmp
+.rebooted
+
 
 # node-waf configuration
 .lock-wscript
@@ -29,8 +31,11 @@ build/Release
 
 # Dependency directories
 node_modules
+bower_components
 src/client/components
+src/server/public
 jspm_packages
+build/
 
 # Optional npm cache directory
 .npm

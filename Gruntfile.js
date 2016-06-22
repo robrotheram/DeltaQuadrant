@@ -12,16 +12,18 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-usemin');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks("grunt-concurrent");
-
+    grunt.loadNpmTasks('grunt-browser-sync');
+    //grunt.loadNpmTasks('grunt-contrib-uglify'); // load the given tasks
 
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-        useminPrepare: {
+      pkg: grunt.file.readJSON('package.json'),
+      useminPrepare: {
             options: {
                 cwd:'src/client',
-                dest: 'src/server/public'
+                dest: 'src/server/public',
+                flow: { steps: { js: ['concat'], css: ['concat', 'cssmin'] }, post: {} }
             },
-            html: 'src/client/index.html'
+            html: 'src/client/index.html',
         },
         usemin: {
             options: {
@@ -30,12 +32,29 @@ module.exports = function (grunt) {
             html: ['src/server/public/{,*/}*.html'],
            // css: ['dist/styles/{,*/}*.css']
         },
+        jshint: {
+          files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js',"!src/server/public/**"],
+          options: {
+            curly: true,
+            eqeqeq: true,
+            eqnull: true,
+            browser: true,
+            globals: {
+              jQuery: true
+            },
+          }
+        },
         watch: {
-            files: ["src/client/**/*","Gruntfile.js","bower.json"],
-            tasks: ["clean","useminPrepare","copy","concat","less","uglify","usemin"]
+            dev:{
+              options: {
+                livereload: true
+              },
+              files: ["src/client/**","src/server/**","!src/server/public/**","Gruntfile.js","bower.json"],
+              tasks: ["build"]
+            },
         },
         // "less"-task configuration
-        clean: ['public'],
+        clean: ['src/server/public'],
         copy: {
             main: {
                 files: [
@@ -67,44 +86,26 @@ module.exports = function (grunt) {
                     {"src/server/public/css/style.css": "src/client/less/custom/style.less"},
                 ],
             }
-        },
-        concurrent: {
-          dev: {
-            tasks: ['nodemon', 'watch'],
-            options: {
-              logConcurrentOutput: true
-            }
-          }
       },
-        nodemon: {
-          dev: {
-            script: './bin/www',
-            options: {
-              args: ['dev'],
-              nodeArgs: ['--debug'],
-              callback: function (nodemon) {
-                nodemon.on('log', function (event) {
-                  console.log(event.colour);
-                });
-              },
-              env: {
-                PORT: '8181'
-              },
-              cwd: __dirname,
-              ignore: ['node_modules/**'],
-              ext: 'js,coffee',
-              watch: ['src/server'],
-              delay: 1000,
-              legacyWatch: true
-            }
-          },
-          exec: {
-            options: {
-              exec: 'less'
-            }
-          }
+      nodemon: {
+           dev: {
+               script: 'bin/www',
+               ignore:  ['node_modules/**','bower_components/**','public/**']
+           }
+       },
+      concurrent: {
+           dev: {
+               tasks: ['nodemon', 'watch'],
+               options: {
+                   logConcurrentOutput: true
+               }
+           }
         }
-    });
-    grunt.registerTask('default', ['concurrent']);
-    grunt.loadNpmTasks('grunt-contrib-uglify'); // load the given tasks
+      });
+
+
+    // Default task(s).
+
+    grunt.registerTask('server', ['concurrent']);
+    grunt.registerTask('build', ["jshint","useminPrepare","copy","concat","less","usemin"]);
 };
