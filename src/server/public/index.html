@@ -10,9 +10,80 @@
       <link type="text/css" rel="stylesheet" href="css/style.css"/>
   </head>
   <body ng-app="myShoppingList">
-    <div class="card">
-      <h1>This is the login card </h1>
-      <p> please wait</p>
-    </div>
+    <div id="wrapper">
+            <div id="sidebar-wrapper">
+              <div class="sidebar-logo">
+                <img src="img/logo.svg" class="img-circle logo" alt="logo" width="38" height="38"><h3>dash</h3> 
+              </div>
+                <ul class="sidebar-nav">
+
+
+
+
+
+                    <li>
+                        <a href="#">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#">Shortcuts</a>
+                    </li>
+                    <li>
+                        <a href="#">Overview</a>
+                    </li>
+                    <li>
+                        <a href="#">Events</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+            <header>
+                            <nav class="navbar-default pull-left">
+                                <div class="navbar-header">
+                                    <button id="menu-toggle" type="button" class="navbar-toggle collapsed">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                </div>
+                            </nav>
+
+                        </div>
+                    </header>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>Simple Sidebar</h1>
+                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                            <a href="#menu-toggle" class="btn btn-default" >Toggle Menu</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+        <script>
+            $("#menu-toggle").click(function(e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+            </script>
+
   </body>
 </html>
