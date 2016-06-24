@@ -8,20 +8,27 @@
 }
 
 #wrapper.toggled {
-    padding-left: @sidebar-margin;
+    padding-left: @sidebar-width;
 }
 
 .sidebar-logo{
   width: 100%;
   height:@header-height;
-  background-color: #CCC;
+  background-color: #4caf50;
   display: inline-flex;
+  color: @white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.sidebar-logo h3{
+  line-height: 50px;
+  margin-top: 0px;
+}
+
 .logo{
   width: @header-height;
   height:@header-height;
   padding: 5px;
-  background-color: #CCC;
 }
 
 
@@ -34,11 +41,20 @@
     margin-left: -@sidebar-width;
     overflow-y: auto;
     overflow-x: hidden;
-    background: #000;
+  //  background: #495469;
+    background:
+      linear-gradient(
+        rgba(30, 120, 208, 0.45),
+        rgba(83, 60, 225, 0.45)
+        ),
+      url(../img/sidebar-5.jpg);
+    background-size: cover;
+    background-position: center center;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+     opacity: .77;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -68,14 +84,22 @@
 }
 
 .sidebar-nav li {
-    text-indent: 20px;
-    line-height: 40px;
-}
+    //text-indent: 5px;
+    line-height: 50px;
 
+text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.sidebar-nav li a span {
+  width: 50px;
+  text-align: center;
+}
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #999999;
+    font-size: 14px;
+    color: @white;
+    font-weight: 400;
 }
 
 .sidebar-nav li a:hover {
