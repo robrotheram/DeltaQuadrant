@@ -63,7 +63,11 @@ module.exports = function (grunt) {
                     {expand: true, cwd: 'src/client/', src: ['css/**'], dest: 'src/server/public/'},
                     //{expand: true, cwd: 'app/', src: ['js/**'], dest: 'public/'},
                     {expand: true, cwd: 'src/client/', src: ['*.html'], dest: 'src/server/public/'},
+                    {expand: true, cwd: '.tmp/concat/css', src: ['*.css'], dest: 'src/server/public/css'},
+
+
                     {expand: true, cwd: 'bower_components/bootstrap/fonts', src: ['*'], dest: 'src/server/public/fonts'},
+                    {expand: true, cwd: 'bower_components/simple-line-icons/fonts', src: ['*'], dest: 'src/server/public/fonts'},
                 ],
             },
         },

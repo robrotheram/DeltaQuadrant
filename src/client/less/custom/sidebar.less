@@ -1,6 +1,7 @@
 
 #wrapper {
     padding-left: 0;
+    height: 100%;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -33,7 +34,7 @@
 
 
 #sidebar-wrapper {
-    z-index: 1000;
+    z-index: 1;
     position: fixed;
     left: @sidebar-width;
     width: 0;
@@ -41,13 +42,8 @@
     margin-left: -@sidebar-width;
     overflow-y: auto;
     overflow-x: hidden;
-  //  background: #495469;
-    background:
-      linear-gradient(
-        rgba(30, 120, 208, 0.45),
-        rgba(83, 60, 225, 0.45)
-        ),
-      url(../img/sidebar-5.jpg);
+    background: #495469;
+
     background-size: cover;
     background-position: center center;
     -webkit-transition: all 0.5s ease;
@@ -55,6 +51,7 @@
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
      opacity: .77;
+     box-shadow: 4px 0px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -62,12 +59,15 @@
 }
 
 #page-content-wrapper {
+    z-index: 10;
     width: 100%;
+    height: 100%;
     position: absolute;
 }
 
 #wrapper.toggled #page-content-wrapper {
     position: absolute;
+    height: 100%;
     margin-right: -@sidebar-margin;
 }
 
@@ -86,25 +86,37 @@
 .sidebar-nav li {
     //text-indent: 5px;
     line-height: 50px;
-
-text-transform: uppercase;
+    height: 50px;
     margin-bottom: 10px;
 }
 .sidebar-nav li a span {
   width: 50px;
   text-align: center;
-}
-.sidebar-nav li a {
-    display: block;
-    text-decoration: none;
-    font-size: 14px;
-    color: @white;
-    font-weight: 400;
+  line-height: 50px;
+  height: 50px;
+  font-size: 25px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
+
+.sidebar-nav li a {
+    text-decoration: none;
+    display: inline-flex;
+    font-size: 14px;
+    color: @white;
+    width: 100%;
+    height: 50px;
+    font-weight: 400;
+}
+.sidebar-nav li p {
+    font-size: 18px;
+    color: @white;
+    font-weight: 200;
+}
 .sidebar-nav li a:hover {
     text-decoration: none;
-    color: #999;
+    color: @white;
     background: rgba(255,255,255,0.2);
 }
 

@@ -1,6 +1,4 @@
 var app = angular.module("myShoppingList", []);
-
-
-if (app){
+if (app) {
   console.log("fun");
 }

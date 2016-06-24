@@ -18,6 +18,7 @@
   "dependencies": {
     "angular": "^1.5.7",
     "bootstrap": "^3.3.6",
-    "jquery": "2.*"
+    "jquery": "2.*",
+    "simple-line-icons": "^2.3.2"
   }
 }
