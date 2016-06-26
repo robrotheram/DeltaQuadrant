@@ -38,6 +38,7 @@
     "mongodb": "*",
     "mongoose": "^4.4.5",
     "morgan": "~1.6.1",
+    "node-uuid": "^1.4.7",
     "serve-favicon": "~2.3.0"
   }
 }

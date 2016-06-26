@@ -8,6 +8,8 @@ var mongoose    = require('mongoose');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+var uuid = require('node-uuid');
+
 
 var User   = require('./models/users'); // get our mongoose model
 var Server   = require('./models/servers'); // get our mongoose model
@@ -37,6 +39,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+
+app.get('/beta', function(req, res, next) {
+  var ud = uuid.v4();
+  res.send({"uuid":ud});
+});
+
 
 app.get('/setup', function(req, res) {
 
@@ -171,10 +179,6 @@ apiRoutes.get('/check', function(req, res) {
 
 app.use('/api', apiRoutes);
 
-app.get('/test', function(req, res, next) {
-  res.json({ message: 'hooray! welcome to our api!' });
-});
-
 app.post('/server', function(req, res) {
   console.log(req.body);
   var coll = db.collection('logs');
@@ -199,7 +203,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.send({
       message: err.message,
       error: err
     });
