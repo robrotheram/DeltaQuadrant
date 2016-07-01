@@ -3,42 +3,27 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
-var uuid = require('node-uuid');
 
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
 
-var User   = require('./models/users'); // get our mongoose model
-var Server   = require('./models/servers'); // get our mongoose model
 var routes = require('./routes/index');
-
-var login = require('./routes/users/index');
+var users = require('./routes/api/users');
+var servers = require('./routes/api/servers');
 var apiRoutes = require('./routes/api/index');
-var settings  = require('./settings');
+
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.set('superSecret', 'bob'); // secret variable
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(settings.logger('dev'));
+
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(session({
-  store: new MongoStore({ mongooseConnection: settings.mongoose.connection }),
-  secret: '1234567890QWERTY',
-  resave: true,
-  saveUninitialized: true
-}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/api', apiRoutes);
-app.use('/login', login);
+app.use('/auth', users);
+app.use('/server', servers);
 
 app.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
