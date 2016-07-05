@@ -19,13 +19,14 @@ router.post('/login', function(req, res) {
     if(!user){
       res.send({message:"can not find user"});
     } else if (req.body.password === user.password) {
-        var tkn = jwt.sign({ foo: 'bar' }, settings.secret);
+        var tkn = jwt.sign({ userID: user._id }, settings.secret);
         res.send({"message":"sucess","token":tkn});
     } else {
         res.send({message:"Login Failed"});
     }
   });
 });
+
 router.post('/register', function(req, res, next) {
   res.send('respond with a resource');
 });

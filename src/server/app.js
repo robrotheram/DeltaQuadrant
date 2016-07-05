@@ -3,7 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var kafka = require('kafka-node');
 
 var routes = require('./routes/index');
 var users = require('./routes/api/users');
@@ -11,6 +11,13 @@ var servers = require('./routes/api/servers');
 var apiRoutes = require('./routes/api/index');
 
 var app = express();
+
+
+var Producer = kafka.Producer;
+var client = new kafka.Client('172.17.0.2:2181');
+var producer = new Producer(client);
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,17 +28,32 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/api', apiRoutes);
-app.use('/auth', users);
-app.use('/server', servers);
+app.use('/api/ingestion', apiRoutes);
+app.use('/api/users', users);
+app.use('/api/server', servers);
 
 app.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
 app.get('/beta', function(req, res, next) {
-  var ud = uuid.v4();
-  res.send({"uuid":ud});
+
+  var payloads = [
+          { topic: 'test', messages: 'hi', partition: 0 },
+      ];
+  //console.log(payloads);
+  producer.on('ready', function () {
+      producer.send(payloads, function (err, data) {
+          console.log(err,data);
+      });
+  });
+
+  producer.on('error', function (err) {console.log("ERR",err);});
+
+
+
+
+  res.send({"uuid":"stuff"});
 });
 
 
@@ -68,7 +90,6 @@ app.get('/setupserver', function(req, res) {
     res.json({ success: true });
   });
 });
-
 
 
 app.post('/server', function(req, res) {
