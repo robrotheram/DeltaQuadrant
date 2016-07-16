@@ -106,10 +106,6 @@ module.exports = function (grunt) {
            }
         }
       });
-
-
-    // Default task(s).
-
-    grunt.registerTask('server', ['concurrent']);
+    grunt.registerTask('server', ["build","concurrent"]);
     grunt.registerTask('build', ["jshint","useminPrepare","copy","concat","less","usemin"]);
 };

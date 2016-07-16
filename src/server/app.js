@@ -47,12 +47,7 @@ app.get('/beta', function(req, res, next) {
           console.log(err,data);
       });
   });
-
   producer.on('error', function (err) {console.log("ERR",err);});
-
-
-
-
   res.send({"uuid":"stuff"});
 });
 
