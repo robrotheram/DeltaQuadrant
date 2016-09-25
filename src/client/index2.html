@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+      <!-- build:js(.) js/vendor.js -->
+            <script src="bower_components/angular/angular.js"></script>
+            <script src="bower_components/jquery/dist/jquery.js"></script>
+            <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+      <!-- endbuild -->
+      <!-- build:js(.) js/scripts.js -->
+          <script src="src/client/js/app.js"></script>
+          <script src="src/client/js/controller/homeCtrl.js"></script>
+      <!-- endbuild -->
+      <!-- build:css(.) css/vendor.css -->
+          <link type="text/css" rel="stylesheet" href="bower_components/simple-line-icons/css/simple-line-icons.css"/>
+      <!-- endbuild -->
+
+      <link type="text/css" rel="stylesheet" href="css/bootstrap.css"/>
+      <link type="text/css" rel="stylesheet" href="css/style.css"/>
+  </head>
+
+  <body>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+
+
+              <a class="navbar-brand" href="#">Project name</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                  <li class="active"><a href="#">Home</a></li>
+                  <li><a href="#about">About</a></li>
+                  <li><a href="#contact">Contact</a></li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="#">Action</a></li>
+                          <li><a href="#">Another action</a></li>
+                          <li><a href="#">Something else here</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li class="dropdown-header">Nav header</li>
+                          <li><a href="#">Separated link</a></li>
+                          <li><a href="#">One more separated link</a></li>
+                      </ul>
+                  </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="../navbar/">Default</a></li>
+                  <li><a href="../navbar-static-top/">Static top</a></li>
+                  <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+              </ul>
+          </div><!--/.nav-collapse -->
+      </div>
+  </nav>
+  <div class="container" style="    padding-top: 50px;
+    height: inherit;
+    overflow: auto;">
+
+<br/>
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingOne">
+                  <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          Server 1
+                      </a>
+                  </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body">
+                      <div class="row">
+                          <div class="col-sm-3">
+                              <img src="img/server.png" class="img img-circle img-thumbnail center-block" style="width: 150px; height: 150px; margin: 0 auto;" />
+                              <hr/>
+                              <button class="btn-primary btn btn-block">Update Server</button>
+
+                              <button class="btn-danger btn btn-block">Delete Server</button>
+                              <br/>
+                          </div>
+                          <div class="col-sm-9">
+                              <div class="form-group row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Server ID:</label>
+                                  <div class="col-xs-10">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input" disabled>
+                                  </div>
+                              </div>
+                              <div class="form-group row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Secret Key:</label>
+                                  <div class="col-xs-8">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input" disabled>
+                                  </div>
+                                  <div class="col-xs-2">
+                                      <button class="btn-warning btn btn-block"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> </button>
+                                  </div>
+                              </div>
+                              <hr/>
+                              <div class="form-group has-feedback row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Server Name:</label>
+                                  <div class="col-xs-10">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
+                                      <span class="glyphicon glyphicon glyphicon-pencil form-control-feedback" aria-hidden="true" style=" margin-right: 15px;"></span>
+                                  </div>
+                              </div>
+                              <div class="form-group has-feedback row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Server URL:</label>
+                                  <div class="col-xs-10">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
+                                      <span class="glyphicon glyphicon glyphicon-pencil form-control-feedback" aria-hidden="true" style=" margin-right: 15px;"></span>
+                                  </div>
+                              </div>
+                          </div>
+                          <hr/>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingFive">
+                  <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="true" aria-controls="collapseOne">
+                          Server 1
+                      </a>
+                  </h4>
+              </div>
+              <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                  <div class="panel-body">
+                      <div class="row">
+                          <div class="col-sm-3">
+                              <img src="img/server.png" class="img img-circle img-thumbnail center-block" style="width: 150px; height: 150px; margin: 0 auto;" />
+                              <hr/>
+                              <button class="btn-primary btn btn-block">Update Server</button>
+
+                              <button class="btn-danger btn btn-block">Delete Server</button>
+                              <br/>
+                          </div>
+                          <div class="col-sm-9">
+                              <div class="form-group row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Server ID:</label>
+                                  <div class="col-xs-10">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input" disabled>
+                                  </div>
+                              </div>
+                              <div class="form-group row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Secret Key:</label>
+                                  <div class="col-xs-8">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input" disabled>
+                                  </div>
+                                  <div class="col-xs-2">
+                                      <button class="btn-warning btn btn-block"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> </button>
+                                  </div>
+                              </div>
+                              <hr/>
+                              <div class="form-group has-feedback row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Server Name:</label>
+                                  <div class="col-xs-10">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
+                                      <span class="glyphicon glyphicon glyphicon-pencil form-control-feedback" aria-hidden="true" style=" margin-right: 15px;"></span>
+                                  </div>
+                              </div>
+                              <div class="form-group has-feedback row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Server URL:</label>
+                                  <div class="col-xs-10">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
+                                      <span class="glyphicon glyphicon glyphicon-pencil form-control-feedback" aria-hidden="true" style=" margin-right: 15px;"></span>
+                                  </div>
+                              </div>
+                          </div>
+                          <hr/>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+
+
+          <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingTwo">
+                  <h4 class="panel-title">
+                      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          Collapsible Group Item #2
+                      </a>
+                  </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                  <div class="panel-body">
+                      <div class="row">
+                          <div class="col-sm-3">
+                              <img src="img/server.png" class="img img-circle img-thumbnail center-block" style="width: 150px; height: 150px; margin: 0 auto;" />
+                              <hr/>
+                              <button class="btn-primary btn btn-block">Update Server</button>
+
+                              <button class="btn-danger btn btn-block">Delete Server</button>
+                              <br/>
+                          </div>
+                          <div class="col-sm-9">
+                              <div class="form-group row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Server ID:</label>
+                                  <div class="col-xs-10">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input" disabled>
+                                  </div>
+                              </div>
+                              <div class="form-group row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Secret Key:</label>
+                                  <div class="col-xs-8">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input" disabled>
+                                  </div>
+                                  <div class="col-xs-2">
+                                      <button class="btn-warning btn btn-block"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> </button>
+                                  </div>
+                              </div>
+                              <hr/>
+                              <div class="form-group has-feedback row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Server Name:</label>
+                                  <div class="col-xs-10">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
+                                      <span class="glyphicon glyphicon glyphicon-pencil form-control-feedback" aria-hidden="true" style=" margin-right: 15px;"></span>
+                                  </div>
+                              </div>
+                              <div class="form-group has-feedback row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Server URL:</label>
+                                  <div class="col-xs-10">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
+                                      <span class="glyphicon glyphicon glyphicon-pencil form-control-feedback" aria-hidden="true" style=" margin-right: 15px;"></span>
+                                  </div>
+                              </div>
+                          </div>
+                          <hr/>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingThree">
+                  <h4 class="panel-title">
+                      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                          Collapsible Group Item #3
+                      </a>
+                  </h4>
+              </div>
+              <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                  <div class="panel-body">
+                      <div class="row">
+                          <div class="col-sm-3">
+                              <img src="img/server.png" class="img img-circle img-thumbnail center-block" style="width: 150px; height: 150px; margin: 0 auto;" />
+                              <hr/>
+                              <button class="btn-primary btn btn-block">Update Server</button>
+
+                              <button class="btn-danger btn btn-block">Delete Server</button>
+                              <br/>
+                          </div>
+                          <div class="col-sm-9">
+                              <div class="form-group row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Server ID:</label>
+                                  <div class="col-xs-10">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input" disabled>
+                                  </div>
+                              </div>
+                              <div class="form-group row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Secret Key:</label>
+                                  <div class="col-xs-8">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input" disabled>
+                                  </div>
+                                  <div class="col-xs-2">
+                                      <button class="btn-warning btn btn-block"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> </button>
+                                  </div>
+                              </div>
+                              <hr/>
+                              <div class="form-group has-feedback row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Server Name:</label>
+                                  <div class="col-xs-10">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
+                                      <span class="glyphicon glyphicon glyphicon-pencil form-control-feedback" aria-hidden="true" style=" margin-right: 15px;"></span>
+                                  </div>
+                              </div>
+                              <div class="form-group has-feedback row">
+                                  <label for="example-text-input" class="col-xs-2 col-form-label">Server URL:</label>
+                                  <div class="col-xs-10">
+                                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
+                                      <span class="glyphicon glyphicon glyphicon-pencil form-control-feedback" aria-hidden="true" style=" margin-right: 15px;"></span>
+                                  </div>
+                              </div>
+                          </div>
+                          <hr/>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+</div>
+  </body>
+</html>

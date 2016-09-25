@@ -6,7 +6,7 @@ var express = require('express');
 var jwt = require('jsonwebtoken');
 
 var Kafka = require('no-kafka');
-var connectionStr = "172.17.0.3:9092";
+var connectionStr = "127.0.0.1:9092";
 var producer = new Kafka.Producer({
   connectionString:connectionStr
 });
@@ -29,9 +29,10 @@ apiRoutes.use(function(req, res, next) {
     });
 });
 
-apiRoutes.get('/mc', function(req, res) {
-  publishKafka('test', 'data reciveed from:'+req.decoded);
-  res.json({ message: 'Welcome to the coolest API on earth!' });
+apiRoutes.post('/server', function(req, res) {
+    publishKafka('test', JSON.stringify(req.body));
+    console.log(JSON.stringify(req.body));
+  res.json({ message: 'Welcome to the coolest API on earth to kafka send!' });
 });
 
 
@@ -51,14 +52,14 @@ apiRoutes.get('/check', function(req, res) {
 
 function publishKafka(topic, message){
     producer.init().then(function(){
-        var strMessage = JSON.stringify(message);
-        console.log('sent message to kafka '+strMessage+' in topic '+topic);
+       // var strMessage = JSON.stringify(message);
+       // console.log('sent message to kafka '+strMessage+' in topic '+topic);
         return producer.send({
             connectionString: connectionStr,
             topic: topic,
             partition: 0,
             message: {
-                value: strMessage
+                value: message
             }
         });
     });

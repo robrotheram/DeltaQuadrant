@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+      <!-- build:js(.) js/vendor.js -->
+            <script src="bower_components/angular/angular.js"></script>
+            <script src="bower_components/jquery/dist/jquery.js"></script>
+            <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="bower_components/chart.js/dist/Chart.bundle.js"></script>
+
+      <!-- endbuild -->
+      <!-- build:js(.) js/scripts.js -->
+          <script src="src/client/js/app.js"></script>
+          <script src="src/client/js/controller/homeCtrl.js"></script/>
+      <!-- endbuild -->
+      <!-- build:css(.) css/vendor.css -->
+          <link type="text/css" rel="stylesheet" href="bower_components/simple-line-icons/css/simple-line-icons.css"/>
+      <!-- endbuild -->
+
+      <link type="text/css" rel="stylesheet" href="css/bootstrap.css"/>
+      <link type="text/css" rel="stylesheet" href="css/style.css"/>
+  </head>
+
+  <body>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+
+
+              <a class="navbar-brand" href="#">Minecraft Analytics</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                  <li class="active"><a href="#">Home</a></li>
+                  <li><a href="#about">About</a></li>
+                  <li><a href="#contact">Contact</a></li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="#">Action</a></li>
+                          <li><a href="#">Another action</a></li>
+                          <li><a href="#">Something </a></li>
+                          <li role="separator" class="divider"></li>
+                          <li class="dropdown-header">Nav header</li>
+                          <li><a href="#">Separated link</a></li>
+                          <li><a href="#">One more separated link</a></li>
+                      </ul>
+                  </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="../navbar/">Default</a></li>
+                  <li><a href="../navbar-static-top/">Static top</a></li>
+                  <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+              </ul>
+          </div><!--/.nav-collapse -->
+      </div>
+  </nav>
+  <div class="wrapper" style="    margin-top: 50px;
+        height: calc(100% - 50px);
+        padding: 20px;
+    overflow: auto;">
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Map</h3>
+                    </div>
+                    <div class="panel-body" style="height: 360px; overflow: auto; padding: 0px;">
+                        <div id="mapid" style="height: 360px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Event Stream</h3>
+                    </div>
+                    <div class="panel-body" style="height: 360px; overflow: auto; padding: 0px;">
+                        <div class="alert alert-success" role="alert">...</div>
+                        <div class="alert alert-info" role="alert">...</div>
+                        <div class="alert alert-warning" role="alert">...</div>
+                        <div class="alert alert-danger" role="alert">...</div>
+                        <div class="alert alert-success" role="alert">...</div>
+                        <div class="alert alert-info" role="alert">...</div>
+                        <div class="alert alert-warning" role="alert">...</div>
+                        <div class="alert alert-danger" role="alert">...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      <hr/>
+      <div class="row">
+          <div class="col-lg-12">
+              <canvas id="line-chart" width="100" height="24px" />
+          </div>
+      </div>
+
+      <hr/>
+
+      <div class="row">
+          <div class="col-lg-12">
+              <canvas id="line-chart2" width="100" height="24px" />
+          </div>
+      </div>
+          <hr/>
+
+      <div class="row">
+          <div class="col-sm-3">
+              <canvas id="chart-area" width="300" height="300" />
+          </div>
+
+          <div class="col-sm-3">
+              <canvas id="chart2-area" width="300" height="300" />
+          </div>
+
+          <div class="col-sm-3">
+              <canvas id="chart3-area" width="300" height="300" />
+          </div>
+
+          <div class="col-sm-3">
+              <canvas id="chart4-area" width="300" height="300" />
+          </div>
+      </div>
+          <hr/>
+      <button class="btn btn-primary" id="randomizeData">Randomize Data</button>
+      <button class="btn btn-primary" id="addDataset">Add Dataset</button>
+      <button class="btn btn-primary" id="removeDataset">Remove Dataset</button>
+      <script>
+          var randomScalingFactor = function() {
+              return Math.round(Math.random() * 100);
+          };
+          var randomColorFactor = function() {
+              return Math.round(Math.random() * 255);
+          };
+          var randomColor = function(opacity) {
+              return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+          };
+
+          var datapoints = [0, 20, 20, 60, 60, 120, 0, 180, 120, 125, 105, 110, 170];
+
+          var Lconfig = {
+              type: 'line',
+              data: {
+                  labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+                  datasets: [{
+                      label: "Cubic interpolation (monotone)",
+                      data: datapoints,
+                      borderColor: 'rgba(255, 0, 0, 0.7)',
+                      backgroundColor: 'rgba(0, 0, 0, 0)',
+                      fill: false,
+                      cubicInterpolationMode: 'monotone'
+                  }, {
+                      label: "Cubic interpolation (default)",
+                      data: datapoints,
+                      borderColor: 'rgba(0, 0, 255, 0.3)',
+                      backgroundColor: 'rgba(0, 0, 0, 0)',
+                      fill: false,
+                  }, {
+                      label: "Linear interpolation",
+                      data: datapoints,
+                      borderColor: 'rgba(0, 0, 0, 0.10)',
+                      backgroundColor: 'rgba(0, 0, 0, 0)',
+                      fill: false,
+                      lineTension: 0
+                  }]
+              },
+              options: {
+                  responsive: true,
+                  title:{
+                      display:true,
+                      text:'Chart.js Line Chart - Cubic interpolation mode'
+                  },
+                  tooltips: {
+                      mode: 'label'
+                  },
+                  hover: {
+                      mode: 'dataset'
+                  },
+                  scales: {
+                      xAxes: [{
+                          display: true,
+                          scaleLabel: {
+                              display: true
+                          }
+                      }],
+                      yAxes: [{
+                          display: true,
+                          scaleLabel: {
+                              display: true,
+                              labelString: 'Value'
+                          },
+                          ticks: {
+                              suggestedMin: -10,
+                              suggestedMax: 200,
+                          }
+                      }]
+                  }
+              }
+          };
+
+          var config = {
+              type: 'doughnut',
+              data: {
+                  datasets: [{
+                      data: [
+                          randomScalingFactor(),
+                          randomScalingFactor(),
+                          randomScalingFactor(),
+                          randomScalingFactor(),
+                      ],
+                      backgroundColor: [
+                          "#F7464A",
+                          "#46BFBD",
+                          "#FDB45C",
+                          "#949FB1",
+                          "#4D5360",
+                      ],
+                  }],
+                  labels: [
+                      "Red",
+                      "Green",
+                      "Yellow",
+                      "Grey",
+                      "Dark Grey"
+                  ]
+              },
+              options: {
+                  responsive: true
+              }
+          };
+          window.onload = function() {
+              var ctx = document.getElementById("chart-area").getContext("2d");
+              window.myPie = new Chart(ctx, config);
+
+              var ctx2 = document.getElementById("chart2-area").getContext("2d");
+              window.myPie = new Chart(ctx2, config);
+
+              var ctx3 = document.getElementById("chart3-area").getContext("2d");
+              window.myPie = new Chart(ctx3, config);
+
+              var ctx4 = document.getElementById("chart4-area").getContext("2d");
+              window.myPie = new Chart(ctx4, config);
+
+              var line = document.getElementById("line-chart").getContext("2d");
+              window.line = new Chart(line, Lconfig);
+
+              var line2 = document.getElementById("line-chart2").getContext("2d");
+              window.line2 = new Chart(line2, Lconfig);
+          };
+          $('#randomizeData').click(function() {
+              $.each(config.data.datasets, function(i, piece) {
+                  $.each(piece.data, function(j, value) {
+                      config.data.datasets[i].data[j] = randomScalingFactor();
+                      config.data.datasets[i].backgroundColor[j] = randomColor(0.7);
+                  });
+              });
+              window.myPie.update();
+          });
+          $('#addDataset').click(function() {
+              var newDataset = {
+                  backgroundColor: [randomColor(0.7), randomColor(0.7), randomColor(0.7), randomColor(0.7), randomColor(0.7)],
+                  data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+              };
+              config.data.datasets.push(newDataset);
+              window.myPie.update();
+          });
+          $('#removeDataset').click(function() {
+              config.data.datasets.splice(0, 1);
+              window.myPie.update();
+          });
+
+          var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+          L.tileLayer('https://api.mapbox.com/styles/v1/robrotheram/cithlmtds002s2hmuihc37nbv/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoicm9icm90aGVyYW0iLCJhIjoiNTUyNmU4ZDVmMzM5M2VhMjc1NDUxNzdiNWUxNThiYjgifQ.X-xGNDaujGYDqg2_J2J8NA').addTo(mymap);
+
+
+      </script>
+</div>
+  </div>
+  </body>
+</html>
