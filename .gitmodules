@@ -1,0 +1,3 @@
+[submodule "src/Voyager"]
+	path = src/Voyager
+	url = https://github.com/robrotheram/Voyager.git
